@@ -1,0 +1,19 @@
+name: Deploy Max Scorecard in S3
+on:
+	workflow_dispatch:
+jobs:
+	my-job:
+ 		steps:
+			-	name: Upload Dashboard
+				uses: wbd-streaming/action-upload-ci-reports@v1
+				id: upload
+				with:
+					report_type: 'Max scorecard'
+					folder_path: 'public'
+			- name: Summary
+				run: |
+					echo "Success!" >> $GITHUB_STEP_SUMMARY
+					echo "" >> $GITHUB_STEP_SUMMARY
+					echo "[View Report](${{ steps.upload.outputs.http_url }}/index.html) <sup>(VPN:lock:)</sup> or click the link above to download." >> $GITHUB_STEP_SUMMARY
+
+
